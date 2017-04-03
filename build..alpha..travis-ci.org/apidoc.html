@@ -1,0 +1,425 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/pillarjs/cookies#readme"
+
+    >cookies (v0.7.0)</a>
+</h1>
+<h4>Cookies, optionally signed using Keygrip.</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.cookies">module cookies</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.cookies.Cookie">
+            function <span class="apidocSignatureSpan">cookies.</span>Cookie
+            <span class="apidocSignatureSpan">(name, value, attrs)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.cookies.connect">
+            function <span class="apidocSignatureSpan">cookies.</span>connect
+            <span class="apidocSignatureSpan">(keys)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.cookies.express">
+            function <span class="apidocSignatureSpan">cookies.</span>express
+            <span class="apidocSignatureSpan">(keys)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">cookies.</span>Cookie.prototype</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.cookies.Cookie">module cookies.Cookie</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.cookies.Cookie.Cookie">
+            function <span class="apidocSignatureSpan">cookies.</span>Cookie
+            <span class="apidocSignatureSpan">(name, value, attrs)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.cookies.Cookie.prototype">module cookies.Cookie.prototype</a><ol>
+
+        <li>
+
+            <span class="apidocSignatureSpan">boolean <span class="apidocSignatureSpan">cookies.Cookie.prototype.</span>httpOnly</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">boolean <span class="apidocSignatureSpan">cookies.Cookie.prototype.</span>overwrite</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">boolean <span class="apidocSignatureSpan">cookies.Cookie.prototype.</span>sameSite</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">boolean <span class="apidocSignatureSpan">cookies.Cookie.prototype.</span>secure</span>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.cookies.Cookie.prototype.toHeader">
+            function <span class="apidocSignatureSpan">cookies.Cookie.prototype.</span>toHeader
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.cookies.Cookie.prototype.toString">
+            function <span class="apidocSignatureSpan">cookies.Cookie.prototype.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">cookies.Cookie.prototype.</span>path</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">undefined <span class="apidocSignatureSpan">cookies.Cookie.prototype.</span>domain</span>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.cookies" id="apidoc.module.cookies">module cookies</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.cookies.Cookie" id="apidoc.element.cookies.Cookie">
+        function <span class="apidocSignatureSpan">cookies.</span>Cookie
+        <span class="apidocSignatureSpan">(name, value, attrs)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Cookie(name, value, attrs) {
+  if (!fieldContentRegExp.test(name)) {
+    throw new TypeError(&#x27;argument name is invalid&#x27;);
+  }
+
+  if (value &#x26;&#x26; !fieldContentRegExp.test(value)) {
+    throw new TypeError(&#x27;argument value is invalid&#x27;);
+  }
+
+  value || (this.expires = new Date(0))
+
+  this.name = name
+  this.value = value || &#x22;&#x22;
+
+  for (var name in attrs) {
+    this[name] = attrs[name]
+  }
+
+  if (this.path &#x26;&#x26; !fieldContentRegExp.test(this.path)) {
+    throw new TypeError(&#x27;option path is invalid&#x27;);
+  }
+
+  if (this.domain &#x26;&#x26; !fieldContentRegExp.test(this.domain)) {
+    throw new TypeError(&#x27;option domain is invalid&#x27;);
+  }
+
+  if (this.sameSite &#x26;&#x26; this.sameSite !== true &#x26;&#x26; !sameSiteRegExp.test(this.sameSite)) {
+    throw new TypeError(&#x27;option sameSite is invalid&#x27;)
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.cookies.connect" id="apidoc.element.cookies.connect">
+        function <span class="apidocSignatureSpan">cookies.</span>connect
+        <span class="apidocSignatureSpan">(keys)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">connect = function (keys) {
+  return function(req, res, next) {
+    req.cookies = res.cookies = new Cookies(req, res, {
+      keys: keys
+    })
+
+    next()
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.cookies.express" id="apidoc.element.cookies.express">
+        function <span class="apidocSignatureSpan">cookies.</span>express
+        <span class="apidocSignatureSpan">(keys)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">express = function (keys) {
+  return function(req, res, next) {
+    req.cookies = res.cookies = new Cookies(req, res, {
+      keys: keys
+    })
+
+    next()
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+A [Keygrip](https://www.npmjs.com/package/keygrip) object or an array of keys can optionally be passed as _options.keys_ to enable
+ cryptographic signing based on SHA1 HMAC, using rotated credentials.
+
+A Boolean can optionally be passed as _options.secure_ to explicitally specify if the connection is secure, rather than this module
+ examining _request_.
+
+Note that since this only saves parameters without any other processing, it is very lightweight. Cookies are only parsed on demand
+ when they are accessed.
+
+### express.createServer( Cookies.<span class="apidocCodeKeywordSpan">express</span>( keys ) )
+
+This adds cookie support as a Connect middleware layer for use in Express apps, allowing inbound cookies to be read using `req.cookies
+.get` and outbound cookies to be set using `res.cookies.set`.
+
+### cookies.get( name, [ options ] )
+
+This extracts the cookie with the given name from the `Cookie` header in the request. If such a cookie exists, its value is returned
+. Otherwise, nothing is returned.
+...</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.cookies.Cookie" id="apidoc.module.cookies.Cookie">module cookies.Cookie</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.cookies.Cookie.Cookie" id="apidoc.element.cookies.Cookie.Cookie">
+        function <span class="apidocSignatureSpan">cookies.</span>Cookie
+        <span class="apidocSignatureSpan">(name, value, attrs)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Cookie(name, value, attrs) {
+  if (!fieldContentRegExp.test(name)) {
+    throw new TypeError(&#x27;argument name is invalid&#x27;);
+  }
+
+  if (value &#x26;&#x26; !fieldContentRegExp.test(value)) {
+    throw new TypeError(&#x27;argument value is invalid&#x27;);
+  }
+
+  value || (this.expires = new Date(0))
+
+  this.name = name
+  this.value = value || &#x22;&#x22;
+
+  for (var name in attrs) {
+    this[name] = attrs[name]
+  }
+
+  if (this.path &#x26;&#x26; !fieldContentRegExp.test(this.path)) {
+    throw new TypeError(&#x27;option path is invalid&#x27;);
+  }
+
+  if (this.domain &#x26;&#x26; !fieldContentRegExp.test(this.domain)) {
+    throw new TypeError(&#x27;option domain is invalid&#x27;);
+  }
+
+  if (this.sameSite &#x26;&#x26; this.sameSite !== true &#x26;&#x26; !sameSiteRegExp.test(this.sameSite)) {
+    throw new TypeError(&#x27;option sameSite is invalid&#x27;)
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.cookies.Cookie.prototype" id="apidoc.module.cookies.Cookie.prototype">module cookies.Cookie.prototype</a></h1>
+
+
+
+
+
+
+
+
+
+
+    <h2>
+        <a href="#apidoc.element.cookies.Cookie.prototype.toHeader" id="apidoc.element.cookies.Cookie.prototype.toHeader">
+        function <span class="apidocSignatureSpan">cookies.Cookie.prototype.</span>toHeader
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toHeader = function () {
+  var header = this.toString()
+
+  if (this.maxAge) this.expires = new Date(Date.now() + this.maxAge);
+
+  if (this.path     ) header += &#x22;; path=&#x22; + this.path
+  if (this.expires  ) header += &#x22;; expires=&#x22; + this.expires.toUTCString()
+  if (this.domain   ) header += &#x22;; domain=&#x22; + this.domain
+  if (this.sameSite ) header += &#x22;; samesite=&#x22; + (this.sameSite === true ? &#x27;strict&#x27; : this.sameSite.toLowerCase())
+  if (this.secure   ) header += &#x22;; secure&#x22;
+  if (this.httpOnly ) header += &#x22;; httponly&#x22;
+
+  return header
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+)
+}
+
+function pushCookie(cookies, cookie) {
+if (cookie.overwrite) {
+  cookies = cookies.filter(function(c) { return c.indexOf(cookie.name+&#x27;=&#x27;) !== 0 })
+}
+cookies.push(cookie.<span class="apidocCodeKeywordSpan">toHeader</span>())
+return cookies
+}
+
+Cookies.connect = Cookies.express = function(keys) {
+return function(req, res, next) {
+  req.cookies = res.cookies = new Cookies(req, res, {
+    keys: keys
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.cookies.Cookie.prototype.toString" id="apidoc.element.cookies.Cookie.prototype.toString">
+        function <span class="apidocSignatureSpan">cookies.Cookie.prototype.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toString = function () {
+  return this.name + &#x22;=&#x22; + this.value
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  cookie.secure = opts.secureProxy
+}
+
+headers = pushCookie(headers, cookie)
+
+if (opts &#x26;&#x26; signed) {
+  if (!this.keys) throw new Error(&#x27;.keys required for signed cookies&#x27;);
+  cookie.value = this.keys.sign(cookie.<span class="apidocCodeKeywordSpan">toString</span>())
+  cookie.name += &#x22;.sig&#x22;
+  headers = pushCookie(headers, cookie)
+}
+
+var setHeader = res.set ? http.OutgoingMessage.prototype.setHeader : res.setHeader
+setHeader.call(res, &#x27;Set-Cookie&#x27;, headers)
+return this
+...</pre></li>
+    </ul>
+
+
+
+
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
