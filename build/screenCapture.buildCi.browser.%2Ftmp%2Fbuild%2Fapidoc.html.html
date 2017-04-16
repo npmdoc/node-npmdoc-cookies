@@ -56,6 +56,15 @@
 
         <li>
 
+            <a class="apidocElementLiA" href="#apidoc.element.cookies.cookies">
+            function <span class="apidocSignatureSpan"></span>cookies
+            <span class="apidocSignatureSpan">(request, response, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
             <a class="apidocElementLiA" href="#apidoc.element.cookies.Cookie">
             function <span class="apidocSignatureSpan">cookies.</span>Cookie
             <span class="apidocSignatureSpan">(name, value, attrs)</span>
@@ -77,6 +86,15 @@
             <a class="apidocElementLiA" href="#apidoc.element.cookies.express">
             function <span class="apidocSignatureSpan">cookies.</span>express
             <span class="apidocSignatureSpan">(keys)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.cookies.toString">
+            function <span class="apidocSignatureSpan">cookies.</span>toString
+            <span class="apidocSignatureSpan">()</span>
             </a>
 
         </li>
@@ -164,6 +182,40 @@
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.cookies" id="apidoc.module.cookies">module cookies</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.cookies.cookies" id="apidoc.element.cookies.cookies">
+        function <span class="apidocSignatureSpan"></span>cookies
+        <span class="apidocSignatureSpan">(request, response, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Cookies(request, response, options) {
+  if (!(this instanceof Cookies)) return new Cookies(request, response, options)
+
+  this.secure = undefined
+  this.request = request
+  this.response = response
+
+  if (options) {
+    if (Array.isArray(options)) {
+      // array of key strings
+      deprecate('"keys" argument; provide using options {"keys": [...]}')
+      this.keys = new Keygrip(options)
+    } else if (options.constructor &amp;&amp; options.constructor.name === 'Keygrip') {
+      // any keygrip constructor to allow different versions
+      deprecate('"keys" argument; provide using options {"keys": keygrip}')
+      this.keys = options
+    } else {
+      this.keys = Array.isArray(options.keys) ? new Keygrip(options.keys) : options.keys
+      this.secure = options.secure
+    }
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
 
 
     <h2>
@@ -265,6 +317,37 @@ This adds cookie support as a Connect middleware layer for use in Express apps, 
 
 This extracts the cookie with the given name from the `Cookie` header in the request. If such a cookie exists, its value is returned
 . Otherwise, nothing is returned.
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.cookies.toString" id="apidoc.element.cookies.toString">
+        function <span class="apidocSignatureSpan">cookies.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toString = function () {
+    return toString;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  cookie.secure = opts.secureProxy
+}
+
+headers = pushCookie(headers, cookie)
+
+if (opts &amp;&amp; signed) {
+  if (!this.keys) throw new Error('.keys required for signed cookies');
+  cookie.value = this.keys.sign(cookie.<span class="apidocCodeKeywordSpan">toString</span>())
+  cookie.name += ".sig"
+  headers = pushCookie(headers, cookie)
+}
+
+var setHeader = res.set ? http.OutgoingMessage.prototype.setHeader : res.setHeader
+setHeader.call(res, 'Set-Cookie', headers)
+return this
 ...</pre></li>
     </ul>
 
