@@ -47,7 +47,7 @@
 }
 </style>
 <h1>api documentation for
-    <a href="https://github.com/pillarjs/cookies#readme">cookies (v0.7.0)</a>
+    <a>cookies (v0.7.0)</a>
 </h1>
 <h4>Cookies, optionally signed using Keygrip.</h4>
 <div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
@@ -86,15 +86,6 @@
             <a class="apidocElementLiA" href="#apidoc.element.cookies.express">
             function <span class="apidocSignatureSpan">cookies.</span>express
             <span class="apidocSignatureSpan">(keys)</span>
-            </a>
-
-        </li>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.cookies.toString">
-            function <span class="apidocSignatureSpan">cookies.</span>toString
-            <span class="apidocSignatureSpan">()</span>
             </a>
 
         </li>
@@ -317,37 +308,6 @@ This adds cookie support as a Connect middleware layer for use in Express apps, 
 
 This extracts the cookie with the given name from the `Cookie` header in the request. If such a cookie exists, its value is returned
 . Otherwise, nothing is returned.
-...</pre></li>
-    </ul>
-
-
-
-    <h2>
-        <a href="#apidoc.element.cookies.toString" id="apidoc.element.cookies.toString">
-        function <span class="apidocSignatureSpan">cookies.</span>toString
-        <span class="apidocSignatureSpan">()</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">toString = function () {
-    return toString;
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-  cookie.secure = opts.secureProxy
-}
-
-headers = pushCookie(headers, cookie)
-
-if (opts &amp;&amp; signed) {
-  if (!this.keys) throw new Error('.keys required for signed cookies');
-  cookie.value = this.keys.sign(cookie.<span class="apidocCodeKeywordSpan">toString</span>())
-  cookie.name += ".sig"
-  headers = pushCookie(headers, cookie)
-}
-
-var setHeader = res.set ? http.OutgoingMessage.prototype.setHeader : res.setHeader
-setHeader.call(res, 'Set-Cookie', headers)
-return this
 ...</pre></li>
     </ul>
 
