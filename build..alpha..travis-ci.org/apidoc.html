@@ -49,6 +49,8 @@
 <h1>api documentation for
     <a
 
+        href="https://github.com/pillarjs/cookies#readme"
+
     >cookies (v0.7.0)</a>
 </h1>
 <h4>Cookies, optionally signed using Keygrip.</h4>
@@ -97,7 +99,22 @@
 
         <li>
 
+            <a class="apidocElementLiA" href="#apidoc.element.cookies.index">
+            function <span class="apidocSignatureSpan">cookies.</span>index
+            <span class="apidocSignatureSpan">(request, response, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">cookies.</span>Cookie.prototype</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">cookies.</span>index.prototype</span>
 
         </li>
 
@@ -169,6 +186,68 @@
         <li>
 
             <span class="apidocSignatureSpan">undefined <span class="apidocSignatureSpan">cookies.Cookie.prototype.</span>domain</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.cookies.index">module cookies.index</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.cookies.index.index">
+            function <span class="apidocSignatureSpan">cookies.</span>index
+            <span class="apidocSignatureSpan">(request, response, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.cookies.index.Cookie">
+            function <span class="apidocSignatureSpan">cookies.index.</span>Cookie
+            <span class="apidocSignatureSpan">(name, value, attrs)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.cookies.index.connect">
+            function <span class="apidocSignatureSpan">cookies.index.</span>connect
+            <span class="apidocSignatureSpan">(keys)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.cookies.index.express">
+            function <span class="apidocSignatureSpan">cookies.index.</span>express
+            <span class="apidocSignatureSpan">(keys)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.cookies.index.prototype">module cookies.index.prototype</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.cookies.index.prototype.get">
+            function <span class="apidocSignatureSpan">cookies.index.prototype.</span>get
+            <span class="apidocSignatureSpan">(name, opts)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.cookies.index.prototype.set">
+            function <span class="apidocSignatureSpan">cookies.index.prototype.</span>set
+            <span class="apidocSignatureSpan">(name, value, opts)</span>
+            </a>
 
         </li>
 
@@ -318,6 +397,58 @@ This extracts the cookie with the given name from the `Cookie` header in the req
 
 
 
+    <h2>
+        <a href="#apidoc.element.cookies.index" id="apidoc.element.cookies.index">
+        function <span class="apidocSignatureSpan">cookies.</span>index
+        <span class="apidocSignatureSpan">(request, response, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Cookies(request, response, options) {
+  if (!(this instanceof Cookies)) return new Cookies(request, response, options)
+
+  this.secure = undefined
+  this.request = request
+  this.response = response
+
+  if (options) {
+    if (Array.isArray(options)) {
+      // array of key strings
+      deprecate(&#x27;&#x22;keys&#x22; argument; provide using options {&#x22;keys&#x22;: [...]}&#x27;)
+      this.keys = new Keygrip(options)
+    } else if (options.constructor &#x26;&#x26; options.constructor.name === &#x27;Keygrip&#x27;) {
+      // any keygrip constructor to allow different versions
+      deprecate(&#x27;&#x22;keys&#x22; argument; provide using options {&#x22;keys&#x22;: keygrip}&#x27;)
+      this.keys = options
+    } else {
+      this.keys = Array.isArray(options.keys) ? new Keygrip(options.keys) : options.keys
+      this.secure = options.secure
+    }
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+if (!opts || !signed) return value
+
+remote = this.get(sigName)
+if (!remote) return
+
+data = name + &#x22;=&#x22; + value
+if (!this.keys) throw new Error(&#x27;.keys required for signed cookies&#x27;);
+index = this.keys.<span class="apidocCodeKeywordSpan">index</span>(data, remote)
+
+if (index &#x3c; 0) {
+  this.set(sigName, null, {path: &#x22;/&#x22;, signed: false })
+} else {
+  index &#x26;&#x26; this.set(sigName, this.keys.sign(data), { signed: false })
+  return value
+}
+...</pre></li>
+    </ul>
+
+
+
+
+
 
 </div>
 
@@ -454,6 +585,289 @@ return this
 
 
 
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.cookies.index" id="apidoc.module.cookies.index">module cookies.index</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.cookies.index.index" id="apidoc.element.cookies.index.index">
+        function <span class="apidocSignatureSpan">cookies.</span>index
+        <span class="apidocSignatureSpan">(request, response, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Cookies(request, response, options) {
+  if (!(this instanceof Cookies)) return new Cookies(request, response, options)
+
+  this.secure = undefined
+  this.request = request
+  this.response = response
+
+  if (options) {
+    if (Array.isArray(options)) {
+      // array of key strings
+      deprecate(&#x27;&#x22;keys&#x22; argument; provide using options {&#x22;keys&#x22;: [...]}&#x27;)
+      this.keys = new Keygrip(options)
+    } else if (options.constructor &#x26;&#x26; options.constructor.name === &#x27;Keygrip&#x27;) {
+      // any keygrip constructor to allow different versions
+      deprecate(&#x27;&#x22;keys&#x22; argument; provide using options {&#x22;keys&#x22;: keygrip}&#x27;)
+      this.keys = options
+    } else {
+      this.keys = Array.isArray(options.keys) ? new Keygrip(options.keys) : options.keys
+      this.secure = options.secure
+    }
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+if (!opts || !signed) return value
+
+remote = this.get(sigName)
+if (!remote) return
+
+data = name + &#x22;=&#x22; + value
+if (!this.keys) throw new Error(&#x27;.keys required for signed cookies&#x27;);
+index = this.keys.<span class="apidocCodeKeywordSpan">index</span>(data, remote)
+
+if (index &#x3c; 0) {
+  this.set(sigName, null, {path: &#x22;/&#x22;, signed: false })
+} else {
+  index &#x26;&#x26; this.set(sigName, this.keys.sign(data), { signed: false })
+  return value
+}
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.cookies.index.Cookie" id="apidoc.element.cookies.index.Cookie">
+        function <span class="apidocSignatureSpan">cookies.index.</span>Cookie
+        <span class="apidocSignatureSpan">(name, value, attrs)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Cookie(name, value, attrs) {
+  if (!fieldContentRegExp.test(name)) {
+    throw new TypeError(&#x27;argument name is invalid&#x27;);
+  }
+
+  if (value &#x26;&#x26; !fieldContentRegExp.test(value)) {
+    throw new TypeError(&#x27;argument value is invalid&#x27;);
+  }
+
+  value || (this.expires = new Date(0))
+
+  this.name = name
+  this.value = value || &#x22;&#x22;
+
+  for (var name in attrs) {
+    this[name] = attrs[name]
+  }
+
+  if (this.path &#x26;&#x26; !fieldContentRegExp.test(this.path)) {
+    throw new TypeError(&#x27;option path is invalid&#x27;);
+  }
+
+  if (this.domain &#x26;&#x26; !fieldContentRegExp.test(this.domain)) {
+    throw new TypeError(&#x27;option domain is invalid&#x27;);
+  }
+
+  if (this.sameSite &#x26;&#x26; this.sameSite !== true &#x26;&#x26; !sameSiteRegExp.test(this.sameSite)) {
+    throw new TypeError(&#x27;option sameSite is invalid&#x27;)
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.cookies.index.connect" id="apidoc.element.cookies.index.connect">
+        function <span class="apidocSignatureSpan">cookies.index.</span>connect
+        <span class="apidocSignatureSpan">(keys)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">connect = function (keys) {
+  return function(req, res, next) {
+    req.cookies = res.cookies = new Cookies(req, res, {
+      keys: keys
+    })
+
+    next()
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.cookies.index.express" id="apidoc.element.cookies.index.express">
+        function <span class="apidocSignatureSpan">cookies.index.</span>express
+        <span class="apidocSignatureSpan">(keys)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">express = function (keys) {
+  return function(req, res, next) {
+    req.cookies = res.cookies = new Cookies(req, res, {
+      keys: keys
+    })
+
+    next()
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+A [Keygrip](https://www.npmjs.com/package/keygrip) object or an array of keys can optionally be passed as _options.keys_ to enable
+ cryptographic signing based on SHA1 HMAC, using rotated credentials.
+
+A Boolean can optionally be passed as _options.secure_ to explicitally specify if the connection is secure, rather than this module
+ examining _request_.
+
+Note that since this only saves parameters without any other processing, it is very lightweight. Cookies are only parsed on demand
+ when they are accessed.
+
+### express.createServer( Cookies.<span class="apidocCodeKeywordSpan">express</span>( keys ) )
+
+This adds cookie support as a Connect middleware layer for use in Express apps, allowing inbound cookies to be read using `req.cookies
+.get` and outbound cookies to be set using `res.cookies.set`.
+
+### cookies.get( name, [ options ] )
+
+This extracts the cookie with the given name from the `Cookie` header in the request. If such a cookie exists, its value is returned
+. Otherwise, nothing is returned.
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.cookies.index.prototype" id="apidoc.module.cookies.index.prototype">module cookies.index.prototype</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.cookies.index.prototype.get" id="apidoc.element.cookies.index.prototype.get">
+        function <span class="apidocSignatureSpan">cookies.index.prototype.</span>get
+        <span class="apidocSignatureSpan">(name, opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">get = function (name, opts) {
+  var sigName = name + &#x22;.sig&#x22;
+    , header, match, value, remote, data, index
+    , signed = opts &#x26;&#x26; opts.signed !== undefined ? opts.signed : !!this.keys
+
+  header = this.request.headers[&#x22;cookie&#x22;]
+  if (!header) return
+
+  match = header.match(getPattern(name))
+  if (!match) return
+
+  value = match[1]
+  if (!opts || !signed) return value
+
+  remote = this.get(sigName)
+  if (!remote) return
+
+  data = name + &#x22;=&#x22; + value
+  if (!this.keys) throw new Error(&#x27;.keys required for signed cookies&#x27;);
+  index = this.keys.index(data, remote)
+
+  if (index &#x3c; 0) {
+    this.set(sigName, null, {path: &#x22;/&#x22;, signed: false })
+  } else {
+    index &#x26;&#x26; this.set(sigName, this.keys.sign(data), { signed: false })
+    return value
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+match = header.match(getPattern(name))
+if (!match) return
+
+value = match[1]
+if (!opts || !signed) return value
+
+remote = this.<span class="apidocCodeKeywordSpan">get</span>(sigName)
+if (!remote) return
+
+data = name + &#x22;=&#x22; + value
+if (!this.keys) throw new Error(&#x27;.keys required for signed cookies&#x27;);
+index = this.keys.index(data, remote)
+
+if (index &#x3c; 0) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.cookies.index.prototype.set" id="apidoc.element.cookies.index.prototype.set">
+        function <span class="apidocSignatureSpan">cookies.index.prototype.</span>set
+        <span class="apidocSignatureSpan">(name, value, opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">set = function (name, value, opts) {
+  var res = this.response
+    , req = this.request
+    , headers = res.getHeader(&#x22;Set-Cookie&#x22;) || []
+    , secure = this.secure !== undefined ? !!this.secure : req.protocol === &#x27;https&#x27; || req.connection.encrypted
+    , cookie = new Cookie(name, value, opts)
+    , signed = opts &#x26;&#x26; opts.signed !== undefined ? opts.signed : !!this.keys
+
+  if (typeof headers == &#x22;string&#x22;) headers = [headers]
+
+  if (!secure &#x26;&#x26; opts &#x26;&#x26; opts.secure) {
+    throw new Error(&#x27;Cannot send secure cookie over unencrypted connection&#x27;)
+  }
+
+  cookie.secure = secure
+  if (opts &#x26;&#x26; &#x22;secure&#x22; in opts) cookie.secure = opts.secure
+
+  if (opts &#x26;&#x26; &#x22;secureProxy&#x22; in opts) {
+    deprecate(&#x27;&#x22;secureProxy&#x22; option; use &#x22;secure&#x22; option, provide &#x22;secure&#x22; to constructor if needed&#x27;)
+    cookie.secure = opts.secureProxy
+  }
+
+  headers = pushCookie(headers, cookie)
+
+  if (opts &#x26;&#x26; signed) {
+    if (!this.keys) throw new Error(&#x27;.keys required for signed cookies&#x27;);
+    cookie.value = this.keys.sign(cookie.toString())
+    cookie.name += &#x22;.sig&#x22;
+    headers = pushCookie(headers, cookie)
+  }
+
+  var setHeader = res.set ? http.OutgoingMessage.prototype.setHeader : res.setHeader
+  setHeader.call(res, &#x27;Set-Cookie&#x27;, headers)
+  return this
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  if (!remote) return
+
+  data = name + &#x22;=&#x22; + value
+  if (!this.keys) throw new Error(&#x27;.keys required for signed cookies&#x27;);
+  index = this.keys.index(data, remote)
+
+  if (index &#x3c; 0) {
+    this.<span class="apidocCodeKeywordSpan">set</span>(sigName, null, {path: &#x22;/&#x22;, signed: false })
+  } else {
+    index &#x26;&#x26; this.set(sigName, this.keys.sign(data), { signed: false })
+    return value
+  }
+};
+
+Cookies.prototype.set = function(name, value, opts) {
+...</pre></li>
+    </ul>
 
 
 </div>
